@@ -1,0 +1,87 @@
+@MessageEstimator_HostAddress = http://localhost:5256
+
+# Exact
+POST {{MessageEstimator_HostAddress}}/api/messages/analyze
+Content-Type: application/json
+
+{
+  "message": "Şifre sıfırlama linki gönderebilir misiniz?"
+}
+
+###
+
+# Typo
+POST {{MessageEstimator_HostAddress}}/api/messages/analyze
+Content-Type: application/json
+
+{
+  "message": "Sifree yenileme yapmak istiyorum."
+}
+
+###
+
+# Irrelevant
+POST {{MessageEstimator_HostAddress}}/api/messages/analyze
+Content-Type: application/json
+
+{
+  "message": "Merhaba, bilgi almak istiyorum."
+}
+
+###
+
+# Çok konulu
+POST {{MessageEstimator_HostAddress}}/api/messages/analyze
+Content-Type: application/json
+
+{
+  "message": "Ödeme ile ilgili değil, teslimat hakkında yazıyorum."
+}
+
+###
+
+# Eşik dışı
+POST {{MessageEstimator_HostAddress}}/api/messages/analyze
+Content-Type: application/json
+
+{
+  "message": "Sifreeee sıfırlama talebim var."
+}
+
+###
+
+# False pozitif
+POST {{MessageEstimator_HostAddress}}/api/messages/analyze
+Content-Type: application/json
+
+{
+  "message": "Hesap numaramı güncellemek istiyorum."
+}
+
+###
+
+# Bağlam uyumsuz
+POST {{MessageEstimator_HostAddress}}/api/messages/analyze
+Content-Type: application/json
+
+{
+  "message": "Kargo değil, ürün iadesi istiyorum."
+}
+
+###
+
+# Tüm senaryolar — toplu analiz
+POST {{MessageEstimator_HostAddress}}/api/messages/analyze-batch
+Content-Type: application/json
+
+{
+  "messages": [
+    "Şifre sıfırlama linki gönderebilir misiniz?",
+    "Sifree yenileme yapmak istiyorum.",
+    "Merhaba, bilgi almak istiyorum.",
+    "Ödeme ile ilgili değil, teslimat hakkında yazıyorum.",
+    "Sifreeee sıfırlama talebim var.",
+    "Hesap numaramı güncellemek istiyorum.",
+    "Kargo değil, ürün iadesi istiyorum."
+  ]
+}
